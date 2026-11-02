@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konversi Mata Uang</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f2f2f2; }
+.kotak { width: 420px; margin: 40px auto; background: #ffffff; padding: 24px; border: 1px solid #cccccc; }
+h2 { text-align: center; }
+label { display: block; margin-top: 12px; }
+input[type=number] { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+.radio { margin-top: 6px; }
+.radio label { display: inline; margin-right: 12px; font-weight: normal; }
+button { margin-top: 16px; padding: 10px; width: 100%; background: #1a73e8; color: #ffffff; border: none; cursor: pointer; font-size: 16px; }
+#hasil { margin-top: 16px; padding: 12px; background: #eef6ee; border: 1px solid #9ccc9c; display: none; }
+.kurs { margin-top: 12px; font-size: 14px; color: #555555; }
+footer { text-align: center; margin-top: 16px; font-size: 13px; color: #777777; }
+</style>
+</head>
+<body>
+<div class="kotak">
+<h2>Konversi Mata Uang</h2>
+<label>Nilai Uang (Rp)
+<input type="number" id="nilai" placeholder="contoh: 100000">
+</label>
+<label>Konversi ke:</label>
+<div class="radio">
+<label><input type="radio" name="kurs" value="dollar"> Dollar</label>
+<label><input type="radio" name="kurs" value="pound"> Poundsterling</label>
+<label><input type="radio" name="kurs" value="yen"> Yen</label>
+<label><input type="radio" name="kurs" value="euro"> Euro</label>
+</div>
+<button onclick="konversi()">Konversi</button>
+<div id="hasil"></div>
+<div class="kurs">
+<p>Kurs hari ini (2 Nov 2026):</p>
+<p>1 Dollar = Rp 18.182 | 1 Poundsterling = Rp 24.390<br>
+1 Yen = Rp 115 | 1 Euro = Rp 20.408</p>
+</div>
+</div>
+<footer>Sendi Winoto - 241011401234</footer>
+<script>
+function konversi() {
+var nilai = parseFloat(document.getElementById("nilai").value);
+var kurs = document.querySelector('input[name="kurs"]:checked');
+var hasil = document.getElementById("hasil");
+if (isNaN(nilai) || nilai <= 0) {
+hasil.style.display = "block";
+hasil.innerHTML = "Masukkan nilai uang yang benar.";
+return;
+}
+if (!kurs) {
+hasil.style.display = "block";
+hasil.innerHTML = "Pilih mata uang tujuan.";
+return;
+}
+var angka = 0;
+var nama = "";
+if (kurs.value == "dollar") { angka = 18182; nama = "Dollar"; }
+else if (kurs.value == "pound") { angka = 24390; nama = "Poundsterling"; }
+else if (kurs.value == "yen") { angka = 115; nama = "Yen"; }
+else if (kurs.value == "euro") { angka = 20408; nama = "Euro"; }
+var konv = nilai / angka;
+hasil.style.display = "block";
+hasil.innerHTML = "Nilai Uang = Rp " + nilai.toLocaleString("id-ID") + "<br>Konversi = " + konv.toFixed(2) + " " + nama;
+}
+</script>
+</body>
+</html>
